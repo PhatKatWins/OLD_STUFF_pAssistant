@@ -1,0 +1,40 @@
+﻿<Window x:Class="pAssistant.View.EntryDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pAssistant.View"
+        xmlns:vm ="clr-namespace:pAssistant.ViewModel"
+        mc:Ignorable="d"
+        Title="Entry Details" Height="220" Width="250"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <vm:EntryDetailsVM x:Key="vm"/>
+    </Window.Resources>
+    <Grid x:Name="containerGrid" DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                BorderBrush="Black" 
+                BorderThickness="2">
+            <StackPanel DataContext="{Binding Entry, UpdateSourceTrigger=PropertyChanged}">
+                <Label Content="Entry name:"/>
+                <TextBox Text="{Binding EntryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Account name:"/>
+                <TextBox Text="{Binding AccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Password:"/>
+                <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" 
+                BorderBrush="Black" 
+                BorderThickness="2">
+            <StackPanel>
+                <Button Content="SAVE" Command="{Binding SaveNewEntryCommand}" CommandParameter="{Binding Entry}"/>
+                <Button Content="CANCEL" Command="{Binding CancelButtonCommand}" CommandParameter="{Binding Entry}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
